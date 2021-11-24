@@ -59,7 +59,7 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         {
             _inputs = _moveAction.ReadValue<Vector2>();
             _playerSpeed = IsPlayerRunning() ? _runSpeed : _standardSpeed;
-            _animSpeed = Mathf.Abs(_movement.x) + Mathf.Abs(_movement.y);
+            _animSpeed = Mathf.Abs(_inputs.x) + Mathf.Abs(_inputs.y);
 
             if(_inputs != Vector2.zero)
             {
