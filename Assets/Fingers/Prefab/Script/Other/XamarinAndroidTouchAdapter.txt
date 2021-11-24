@@ -1,0 +1,152 @@
+﻿The following code is OPTIONAL and not required for Unity. If you are using Xamarin, it will allow you to use all the gestures in a Xamarin Android project.
+--------------------
+Xamarin Android Touch Adapter Code:
+
+// Created by Jeff Johnson
+// (c) 2015 Digital Ruby, LLC
+// Source code may not be sold or re-distributed
+
+/*
+Example usage in an Android view:
+public override bool DispatchTouchEvent(MotionEvent e)
+{
+    base.DispatchTouchEvent(e);
+
+    this.ProcessMotionEvent(TapGesture, e);
+    this.ProcessMotionEvent(PanGesture, e);
+    this.ProcessMotionEvent(LongPressGesture, e);
+
+    return true;
+}
+*/
+
+using System;
+using System.Collections.Generic;
+
+using Android.Graphics;
+using Android.Views;
+using Android.Widget;
+
+using DigitalRubyShared;
+
+namespace YourAppNamespace
+{
+    public static class GestureRecognizerExtension
+    {
+        private static readonly List<GestureTouch> touches = new List<GestureTouch>();
+        private static readonly MotionEvent.PointerCoords coords = new MotionEvent.PointerCoords();
+        private static readonly MotionEvent.PointerCoords coords2 = new MotionEvent.PointerCoords();
+        private static readonly int[] locationOnScreen = new int[2];
+
+        public static ICollection<GestureTouch> GetTouches(View v, MotionEvent e)
+        {
+            touches.Clear();
+            for (int i = 0; i < e.PointerCount; i++)
+            {
+                int pointerId = e.GetPointerId(i);
+                int pointerIndex = e.FindPointerIndex(pointerId);
+                e.GetPointerCoords(pointerIndex, coords);
+
+                if (e.HistorySize == 0 || e.HistorySize <= pointerIndex || e.GetHistoricalSize(pointerIndex) == 0)
+                {
+                    coords2.X = coords.X;
+                    coords2.Y = coords.Y;
+                }
+                else
+                {
+                    e.GetHistoricalPointerCoords(pointerIndex, 0, coords2);
+                }
+
+                v.GetLocationOnScreen(locationOnScreen);
+                GestureTouch t = new GestureTouch(pointerId, coords.X, coords.Y, coords2.X, coords2.Y, 0.0f, coords.X + locationOnScreen[0], coords.Y + locationOnScreen[1]);
+
+                touches.Add(t);
+            }
+
+            return touches;
+        }
+
+        public static void ProcessMotionEvent(this View v, DigitalRubyShared.GestureRecognizer g, MotionEvent e)
+        {
+            v.ProcessMotionEvent(e, false, g);
+        }
+
+        public static void ProcessMotionEvent(this View v, MotionEvent e, params DigitalRubyShared.GestureRecognizer[] gestures)
+        {
+            v.ProcessMotionEvent(e, false, gestures);
+        }
+
+        public static void ProcessMotionEvent(this View v, MotionEvent e, bool inScrollView, params DigitalRubyShared.GestureRecognizer[] gestures)
+        {
+            v.ProcessMotionEvent(e, (inScrollView ? new Rect(0, 0, v.Width, v.Height) : null), gestures);
+        }
+
+        public static void ProcessMotionEvent(this View v, MotionEvent e, Rect scrollViewRect, params DigitalRubyShared.GestureRecognizer[] gestures)
+        {
+            bool gestureStarted = (e.Action == MotionEventActions.Down && scrollViewRect != null && scrollViewRect.Contains((int)e.GetX(), (int)e.GetY()));
+            bool gestureEnded = (e.Action == MotionEventActions.Up);
+            bool foundGesture = false;
+
+            foreach (DigitalRubyShared.GestureRecognizer g in gestures)
+            {
+                if (e.PointerCount == 0 || (g.PlatformSpecificView != null && v != g.PlatformSpecificView))
+                {
+                    continue;
+                }
+                foundGesture = true;
+
+                try
+                {
+                    switch (e.ActionMasked)
+                    {
+                        case MotionEventActions.Down:
+                        case MotionEventActions.PointerDown:
+                            g.ProcessTouchesBegan(GetTouches(v, e));
+                            break;
+
+                        case MotionEventActions.Move:
+                            g.ProcessTouchesMoved(GetTouches(v, e));
+                            break;
+
+                        case MotionEventActions.Up:
+                        case MotionEventActions.PointerUp:
+                            g.ProcessTouchesEnded(GetTouches(v, e));
+                            break;
+
+                        case MotionEventActions.Cancel:
+                            g.ProcessTouchesCancelled(GetTouches(v, e));
+                            break;
+
+                        default:
+                            Logger.WriteLine("Unknown action: {0}", e.ActionMasked);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine("Error processing touches: {0}", ex);
+                }
+            }
+
+            if (foundGesture && scrollViewRect != null && !scrollViewRect.IsEmpty)
+            {
+                ScrollView s = null;
+                for (IViewParent p = v.Parent; p != null; p = p.Parent)
+                {
+                    s = p as ScrollView;
+                    if (s != null)
+                    {
+                        if (gestureStarted)
+                        {
+                            s.RequestDisallowInterceptTouchEvent(true);
+                        }
+                        else if (gestureEnded)
+                        {
+                            s.RequestDisallowInterceptTouchEvent(false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

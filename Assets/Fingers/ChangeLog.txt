@@ -1,0 +1,410 @@
+﻿Changelog
+--------------------
+3.0.3	(2021-07-23)
+		- Option to snap mouse zoom positions back when they get too close.
+
+3.0.2	(2021-06-11)
+		- Fixes for mouse handling and TreatMouseWheelAsFingers property.
+
+3.0.1	(2021-05-30)
+		- Improve new input system performance.
+
+3.0.0   (2021-04-22)
+        - Preliminary support for new Unity input system, just define UNITY_INPUT_SYSTEM_V2 in player scripting defines and it will turn on.
+
+2.9.8   (2021-01-30)
+        - Allow custom comparer for GestureIntersectsObject method
+        - Add GestureRecognizer.ConsumeTouch and GestureRecognizer.UnconsumeTouch - useful for taking exclusive ownership of a touch
+        - Add Priority field to GestureRecognizer to control order of execution for gestures
+        - Add asmdef file
+        - Don't log dpi error in headless mode
+
+2.9.7   (2020-07-22)
+        - When a platform specific view matches, only the first match is taken. If there are overlaps of platform specific view, the one on top wins.
+        - Fix issue with canvas elements using drag/drop script not dragging at correct speed.
+
+2.9.6   (2020-06-21)
+        - Fix long press gesture being able to move beyond threshold before gesture starts.
+
+2.9.5   (2020-06-09)
+        - Adjust readme to denote a higher recommended fixed timestamp value.
+
+2.9.4	(2020-03-25)
+		- Add rotation option to scroll view script.
+		- Add threshold time to swipe gesture. If the swipe hasn't executed within this threshold, the gesture is failed.
+
+2.9.3	(2019-12-16)
+		- Don't send jump events if tap to jump is false on joystick anywhere script.
+
+2.9.2	(2019-11-16)
+		- Add demo scene to show orbiting and placing objects, having the placed objects pan gesture reset the orbit gesture so that the two gestures don't execute at the same time.
+
+2.9.1	(2019-11-09)
+		- Add option to use a file name in the "Gesture Image" -> "Images" field instead of a raw script value. This should let you add a lot more variants per image.
+		- Add option to use file name in the image automation scene (text box at bottom) to write script output to file instead of on screen.
+
+2.9.0	(2019-09-26)
+		- Add TestTouches field to fingers script. This makes it easier to create tests and inject fake touches to create automated UI and touch handling tests, test really fast flicks, etc.
+		- Add RecordTouches property to fingers script. This will populate the test touches array with all touches in play mode. You can then click copy component, stop play and paste component values to paste in the touches and you can replay the touches you did on next play.
+		- Change pan gesture to process one last iteration in the end touch event.
+
+2.8.4	(2019-09-15)
+		- Add optional restricted area to joystick script. Can use to prevent joystick going outside of certain areas.
+		- Change joystick starting mode to an enum property 'StartMode' with three values: MustStartInside, MoveToPanStart and PanInsideOrPanMovesInside.
+		- Improve scale gesture smoothness.
+
+2.8.3	(2019-09-13)
+		- Tweak how Mask property works. It is now only accessible from script. Add all masks in OnEnable. Remove masks in OnDisable. See DemoScriptJoystick.cs for an example.
+		- Add dead zones and input curve to joystick. This will better control joystick power, and these replace the joystick power field.
+		- Add active and idle image and background image to the joystick script.
+		- Add ReturnToHomePosition option to joystick script.
+		- New demo scene with two joysticks, two mover objects and two mask areas.
+
+2.8.2	(2019-09-12)
+		- Add Masks property to FingersScript. This is an array of Collider2D. Each must be in a Canvas object. Gestures will be restricted to these objects if they are set and active.
+
+2.8.1	(2019-09-09)
+		- Add UseFixedUpdate property to fingers script. This will allow the gestures to read from Unity input faster, using the fixed update rate in project settings -> time.
+		- Change FingersPanRotateScaleComponentScript MinMaxScale to be a percentage of the transform start scale. Either value can be negative to disable scaling.
+
+2.8.0	(2019-09-06)
+		- Add example projects folder. Will put in more complete examples of how to make a game or app with fingers gestures. Starting work on a word game example.
+		- Add TimeToRestartThresholdUnits to pan gesture recognizer.
+
+2.7.9	(2019-09-05)
+		- Add SpeedUnitsToRestartThresholdUnits property to pan gesture recognizer to aid in placing objects with exactness.
+
+2.7.8	(2019-08-21)
+		- Add new DemoSceneVirtualTouches and DemoScriptVirtualTouches. Virtual touch handling is now well documented in this demo script. FingersScript has a new callback method that is required to implement virtual touches: VirtualTouchUpdateHandler.
+
+2.7.7	(2019-08-09)
+		- Add two finger pan gesture to first person script to allow looking up and down.
+
+2.7.6	(2019-08-03)
+		- Change FingersPanARComponentScript to allow multiple targets. First target hit by racast will be chosen when the pan starts. You will need to re-setup this script if you are using it.
+		
+2.7.5	(2019-07-25)
+		- Add TreatMouseWheelAsFingers property to FingersScript. Now you can have a mouse wheel handler without the mouse pointer.
+
+2.7.4	(2019-07-09)
+		- Add Reset method to joystick script. Use this if app resumes from background on mobile device.
+
+2.7.3	(2019-07-05)
+		- Add LookAtTarget flag to FingersPanOrbitComponentScript. Set to false to prevent the script from auto-pointing the camera at the target.
+
+2.7.2	(2019-06-26)
+		- Add ClampBounds property to pan orbit script to restrict the orbiter to a box.
+
+2.7.1	(2019-06-12)
+		- Add multiple camera support for drag drop component script and pan, rotate, scale component script.
+
+2.7.0	(2019-05-14)
+		- Add pan to rotate camera or object component. Use this for a 1st person camera to look around, or to rotate a 3D object around x and y axis.
+
+2.6.9	(2019-05-11)
+		- Add one touch x and y axis scale gesture component. Great for scaling separately on x and y axis.
+
+2.6.8	(2019-05-05)
+		- Add option to pan / rotate / scale script to disable pan, rotate and/or scale.
+		- Add additional double tap reset option to pan / rotate / scale script that allows reset of position.
+
+2.6.7   (2019-05-03)
+		- Fix compile error when ScrollView was not in Unity version.
+
+2.6.6	(2019-03-14)
+		- Add camera 3d movement component script, similar to mapps applications on mobile movement. See DemoSceneCameraMove3D.
+
+2.6.5   (2019-03-08)
+		- Spiffy up joystick appearance to be more modern.
+		- Add follow speed for joystick to follow the touch.
+		- Move 'MoveJoystickToGestureStartLocation' property to joystick script.
+
+2.6.4	(2019-03-06)
+		- Add AR/VR pan object demo and component script. Use pan to move object left/right or forward/back. Great for placing plane or object in AR/VR.
+
+2.6.3	(2019-02-26)
+		- Fix joystick to accurately track with touch.
+		- Add second dpad to dpad demo scene.
+		- Add move and fire demo scene + script.
+		- Remove move to touch option for dpad, it was horribly broken anyway and doesn't make a lot of sense for dpad.
+
+2.6.2	(2019-02-21)
+		- Auto-add physics ray casters and event system if needed. This can be disabled via boolean property AutoAddRequiredComponents on fingers script.
+
+2.6.1	(2019-02-18)
+		- Add ability to turn off Unity touches and mouse. Great if you are implementing a virtual touch interface and don't want those interfering.
+
+2.6.0	(2019-02-05)
+		- Support bulk import of images for image automation. See tutorial in readme.txt file.
+		- Allow min and max scale of 1 to disable scaling in the pan/rotate/scale script.
+
+2.5.9	(2019-02-04)
+		- Drag drop script now supports 3D objects. Ensure physics raycaster is added to your camera.
+
+2.5.8	(2019-01-31)
+		- Bug fixes
+
+2.5.7	(2019-01-11)
+		- Add demo scene with a dimming view that can be tapped to dismiss a content view.
+		- Fix zoom pan camera component script to not flicker.
+
+2.5.6	(2019-01-07)
+		- Log detected DPI upon script startup.
+
+2.5.5	(2018-12-07)
+		- Add interface for virtual touches. Set VirtualTouchCountHandler and VirtualTouchObjectHandler on FingersScript.Instance to inject your own touches (VR, AR, etc.).
+		
+2.5.4	(2018-11-25)
+		- Make all gesture creation and initialization happen in OnEnable.
+		- Make all gesture cleanup happen in OnDisable.
+		- This pattern should be followed for all your custom gesture scripts going forward.
+
+2.5.3	(2018-11-20)
+		- Remove threshold for image automation scene. Now your strokes start immediately.
+		- Add error dialog to image automation scene if you haven't yet typed in an image name.
+
+2.5.2	(2018-11-12)
+		- Fix multiple strokes not showing in image automation scene.
+
+2.5.1	(2018-09-21)
+		- Greatly improve image and shape training. See readme.txt for tutorial video link.
+		- Fix scroll view script to track the pan position exactly.
+
+2.5.0	(2018-09-10)
+		- Added first person and third person controller script and example scenes, and tutorial videos.
+		- Added joystick anywhere control. Use this script to create a joystick (with optional tap to jump) wherever the finger starts to pan.
+
+2.4.8	(2018-08-25)
+		- Add option to joystick to have x and y be 1 each at full diagonal instead of 0.5, 0.5 each.
+		- Add cross platform input support for joystick and dpad. See the horizontal and vertical input name properties on these scripts.
+
+2.4.7	(2018-08-19)
+		- Add SendBeginExecutingStates to swipe gesture. Set to false to not send the begin and executing states.
+
+2.4.6	(2018-08-17)
+		- Tweaks / fixes to platform specific view and pass through.
+		- Fix orbit demo to show the tap in debug log.
+
+2.4.5	(2018-07-11)
+		- Change DPad to allow multiple directions in one callback. The FingersDPadItem enum is now a flags. See DemoScriptDPad.cs.
+
+2.4.4	(2018-07-09)
+		- Allow rotation of camera zoom pan script.
+
+2.4.3	(2018-06-23)
+		- Fix pan orbit script to do max distance properly.
+
+2.4.2	(2018-06-17)
+		- Add demo scene for raycasting.
+		- Add instructions to readme to convert from screen space coordinates to canvas space coordinates.
+
+2.4.1	(2018-06-14)
+		- Add MouseDistanceInUnitsForScaleAndRotate and MouseWheelDeltaMultiplier properties to FingersScript to adjust how mouse scale and rotate works.
+
+2.4.0	(2018-06-10)
+		- Expose gestures as public properties in component scripts. This allows you to modify the gestures or have the gestures require other gestures to fail, etc.
+
+2.3.9	(2018-05-29)
+		- Add min/max scale to pan, rotate, scale component script.
+
+2.3.8	(2018-05-22)
+		- Add demo for dragging cards around and swiping them away off screen. See DemoSceneDragSwipe.
+
+2.3.7	(2018-05-21)
+		- Fix for previous touch position
+
+2.3.6	(2018-05-15)
+		- Add two finger pan option to FingersPanOrbitComponentScript and change orbit pan checkbox to an enum.
+
+2.3.5	(2018-05-11)
+		- Add separate pan speeds and limits to FingersPanOrbitComponentScript.
+
+2.3.4	(2018-05-09)
+		- Added image recognizer helper script. This should make it much easier to get started with image recognition. See DemoSceneImageHelper.
+		- Added LevelUnloadOption property to FingersScript. This replaces ClearGesturesOnLevelLoad.
+
+2.3.3	(2018-04-17)
+		- Fixes for Unity bugs where touch ended or touch cancel events are not sent.
+		- Option to scale with mouse wheel without control key. See fingers script 'RequireControlKeyForMouseZoom'.
+
+2.3.2	(2018-03-27)
+		- Improve drag drop and pan/rotate/scale gesture by removing jitter and wrong offsets during drag.
+		- Mouse scale cannot overlap touches anymore.
+		- Add platform demo scene. Great for showing jump, movements and dropping through a platform. See DemoScenePlatformMoveJump.
+
+2.3.1	(2018-03-26)
+		- Bug fixes for pan, rotate scale gesture.
+		- Bug fixes for zoom pan camera scene and component gesture.
+
+2.3.0	(2018-03-21)
+		- Scroll view is now a component and zooms properly, maintaining the zoom position based on location of scale gesture.
+		- Fix wobble when using rotation gesture and panning object at the same time.
+		- Rename some script files, this should not cause any problems but let me know if you see any strange errors.
+
+2.2.5	(2018-03-20)
+		- Bug fixes and improvements for zoomable scroll view demo. I do everything custom now. The Unity scrollview is gone because it was too buggy.
+		- Improve smoothness of scale gesture.
+
+2.2.4	(2018-03-05)
+		- Better tracking of touches and touch circles, remove circle flicker in edge cases.
+
+2.2.3	(2018-02-28)
+		- Allow gestures to be created in Awake if using FingersScript.Instance.
+		- *** It is still highly recommended to create your gestures in the Start method. ***
+
+2.2.2	(2018-02-25)
+		- Fix dpad image pixel offset errors.
+		- Make multi drag component script, used by demo scene multi drag.
+
+2.2.1	(2018-02-18)
+		- Add FingersZoomPanCamera script. This is now used in DemoSceneZoomPanCamera and allows setting a VisibleArea collider to clamp the visible area.
+
+2.2.0	(2018-02-15)
+		- Update multi drag scene to set the platform specific view and make one pan gesture per asteroid.
+		- Gestures by default are now allowed to execute simultaneously if the platform specific view properties are not equal to each other. This can be changed via AllowSimultaneousExecutionIfPlatformSpecificViewsAreDifferent property. You can always allow gestures to execute simultaneously regardless of the platform specific view by calling AllowSimultaneousExecution methods.
+
+2.1.6	(2018-02-12)
+		- Add multi drag demo scene to show dragging multiple objects with multiple touches at the same time.
+
+2.1.5	(2018-01-31)
+		- Increase prefab touch array size to 32 to show up to 32 simultaneous touches.
+
+2.1.4	(2018-01-11)
+		- Further improve orbit script by removing min and max zoom and changing to min and max distance.
+		- Orbit script now zooms, pans and orbits smoothly with velocity.
+		- Remove min and max positions for orbit script.
+
+2.1.3	(2018-01-10)
+		- Add OrbitXPan and OrbitYPan booleans to orbit script to allow the camera to slide instead of orbit.
+		- Add AllowMovementOnBothAxisSimultaneously parameter to orbit script.
+
+2.1.2	(2017-12-15)
+		- Add new EndMode property to swipe gesture, giving three different possible types of end swipe behavior. See SwipeGestureRecognizerSwipeMode for more details.
+
+2.1.1	(2017-12-12)
+		- Update demo scene swipe to show that only the end immediately parameter is needed for multiple swipes without lifting a finger.
+
+2.1.0	(2017-12-06)
+		- Add ability for FingersPanRotateScaleScript to affect many game objects with one script. See DemoScenePanRotateScaleManyWithOneGesture for an example.
+
+2.0.5	(2017-12-04)
+		- Fixes for iOS, timings were slightly off, so switched everything to use System.Diagnostics.Stopwatch. This should fix tap requiring double tap to fail on iOS.
+
+2.0.4	(2017-12-01)
+		- Fixed for tap gesture recognizer.
+		- Allow multiple gestures to be required to fail for a gesture to end.
+
+2.0.3	(2017-11-15)
+		- Add eight axis mode for joystick script to only allow exactly 8 directions.
+
+2.0.2	(2017-11-10)
+		- Improve the ability to continue gestures without lifting touches. See DemoSceneSwipe / DemoScriptSwipe.cs.
+
+2.0.1	(2017-11-08)
+		- Added TapTouches property to TapGestureRecognizer. This will keep track of every touch involved in the tap, even if it requires another tap to fail. Use
+		   this property over CurrentTrackedTouches for the tap gesture, as CurrentTrackedTouches will get cleared out when a tap gesture requires another gesture to fail.
+		- Improve ScaleXMultiplier and ScaleYMultiplier on scale gesture.
+
+2.0.0	(2017-11-04)
+		- Deprecate the Updated property on DigitalRubyShared.GestureRecognizer. StateUpdated is the preferred property and removes the redundant touches parameter, as that is
+		   accessible under the CurrentTrackedTouches property of the gesture. The Updated property will be removed in a future version, so please migrate
+		   to the new property ASAP.
+		- Moved component gestures over to StateUpdated property. You'll need to re-wire these events up in the inspector using the new method signature without the touches parameter.
+		- Fix double tap issue and multiple swipes with one gesture issue.
+		- Pass Unity touch pressure to GestureTouch object.
+		- Add Pressure property to DigitalRubyShared.GestureRecognizer.
+		- Add scale x multiplier and scale y multiplier to scale gestures.
+		- Many more bug fixes, especially for multiple touch gestures.
+
+1.9.3	(2017-11-03)
+		- Fix for double tap and continual swipe gestures.
+
+1.9.2	(2017-10-28)
+		- Critical bug fix, reading Unity touches was broken completely, it is fixed now.
+
+1.9.1	(2017-10-23)
+		- Change DemoSceneSwipe to allow swipes in different directions without lifting the touch. See DemoScriptSwipe for how this works.
+
+1.9.0	(2017-10-12)
+		- Moved fingers script prefab into Prefab/Resources folder. You no longer need to drag this in your scene, although you still can if you want. Everything just works.
+		- Add new components for gestures, accessible from menu at top -> Component -> Fingers Gestures -> *. See DemoSceneComponents.
+
+1.8.0	(2017-10-11)
+		- Added inertia to orbit script, to allow a smooth continuation of movement after orbit gesture.
+		- Added new scene, DemoSceneUIPlus3DElements to show gestures on ui elements + 3d elements in the same scene.
+		- Add rotation orbit scene demo, as seen in Unity Twitch stream.
+
+1.7.5	(2017-09-21)
+		- Change orbit script speeds to be in degrees per second.
+		- Add orbit parameters for max x and max y degrees rotation.
+
+1.7.4	(2017-09-12)
+		- Added move to touch location property for joystick and dpad.
+
+1.7.3	(2017-08-26)
+		- Added 3D example with zooming camera and orbit a 3D object.
+
+1.7.2	(2017-08-14)
+		- Added camera zoom and pan demo for orthographic and perspective, see DemoSceneZoomPanCamera.
+
+1.7.1	(2017-08-05)
+		- Fix null reference exception.
+
+1.7.0	(2017-08-04)
+		- Added DPad prefab. See DemoSceneDPad.
+		- Created joystick prefab from the joystick demo scene.
+
+1.6.1	(2017-07-19)
+		- Set screen x and y of gesture touch to the Unity touch raw x and raw y values.
+
+1.6.0	(2017-06-15)
+		- Added joystick script. See DemoSceneJoystick.
+		- Fixed a bug where platform specific view didn't work if the gesture didn't start over a game object.
+
+1.5.2	(2017-05-10)
+		- Unity 5.6 bug fixes and bug fixes for pass through logic.
+		- Better handling of 3D scenes.
+
+1.5.1	(2017-04-21)
+		- Fix for buttons, toggle, dropdown, etc. passing through touches by default. They now do NOT pass through touches by default.
+
+1.5.0	- Added FingersPanRotateScaleScript.cs and FingersDragDropScript.cs, with example scenes.
+		- Swipe gesture sets executing and failed states.
+
+1.4.0	- Added FingersImageAutomationScene. When generating large amounts of image gestures, this will copy the code automatically into a text box. When you are done drawing all the variants you can copy and paste the code out of the text box. Tap the X in the bottom right in the scene to remove the last line if you made a mistake.
+		- Added Score property to ImageGestureImage. Value is 0-1.
+
+1.3.2	- Change ImageGestureRecognizer again. It sends begin, executing and end states. It got a new ThresholdUnits property, which is the distance in units the touch must move before this gesture begins.
+        - Critical bug fixes for all the gestures. I've tested a lot on iPad and Android devices to try and fix little glitches and problems with the asset.
+        - Refactor TouchesBegan. It receives an enumerable collection of all beginning touches. CurrentTouches property is removed, use CurrentTrackedTouches instead inside TouchesMoved and TouchesEnded.
+
+1.3.1	- ImageGestureRecognizer no longer sends began and executing states. Only Ended state is sent. You can tell if the state began if the gesture calls back and TouchesAreMoving is false, then the touches have just begun. If it is true, then the touches are moving.
+
+1.3.0	- Added a demo showing a zoomable scroll view
+		- Added a FingersScriptPrefab so the script can live for the lifetime of your game. See DemoScript.cs Start method.
+
+1.2.5	- Added a way to override the anchor of the one touch rotate gesture.
+
+1.2.4	- Pass through handler tweak: renamed to CaptureGestureHandler. A null handler or null return value uses default capture behavior, otherwise return true to capture the gesture, false to pass it through.
+
+1.2.3	- Improvements to pass through gestures - now a parent UI element will pass through gestures to all child elements.
+		- Also added a custom pass through handler function for complex cases.
+
+1.2.2	- One finger gestures will not begin if more than one finger is down.
+
+1.2.1	- Critical bug fixes for image gesture recognizer and image demo scene.
+
+1.2.0	- Big refactor of code. Gestures now track touches, which means simultaneous gestures can execute on separate touches now.
+		- Some properties have been removed or renamed. In DigitalRubyShared.GestureRecognizer.cs, the public properties (at the bottom of the file) are where most things can be found now.
+		- Added custom image recognition gestures.
+
+1.1.1	- Code refactoring, clear gestures when scenes change and added tutorial video link.
+
+1.1		- Fingers can use all mouse buttons and the mouse wheel.
+		- Use ctrl + wheel to pinch and shift + wheel to rotate.
+		- FingersScript has Touches property and the demo adds circles for touch points.
+
+1.0.2	- Bug fixes. conv
+		- Breaking change: OnUpdated is now just Updated.
+
+1.0.0	- Initial release.
