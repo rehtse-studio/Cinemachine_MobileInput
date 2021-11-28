@@ -10,7 +10,6 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
         [SerializeField]
         private Vector2 _playerVectorOutput;
         private Touch _myTouch;
-        [SerializeField]
         private int _touchID;
 
         private void Update()

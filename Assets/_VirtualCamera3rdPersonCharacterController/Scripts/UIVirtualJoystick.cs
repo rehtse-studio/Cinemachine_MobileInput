@@ -65,10 +65,11 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_joystickContainerRectTransform, _onDragEvenData.position, _onDragEvenData.pressEventCamera, out _touchPosition);
             _touchPosition = ApplySizeDelta(_touchPosition);
-            _clampedPosition = ClampValuesToMagnitude(_touchPosition);
             _outputPosition = ApplyInversionFilter(_touchPosition);
-
+            _clampedPosition = ClampValuesToMagnitude(_touchPosition);
+            
             OutputVectorValue(_outputPosition * _magnitudeMultiplier);
+
             if (_joystickHandleRectTransform)
             {
                 UpdateJoystickHandleRectTransformPosition(_clampedPosition * _joystickMovementRange);

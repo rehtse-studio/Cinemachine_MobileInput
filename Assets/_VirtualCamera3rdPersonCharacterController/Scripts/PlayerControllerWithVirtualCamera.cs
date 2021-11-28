@@ -38,10 +38,8 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
         private Camera _mainCamera;
         private Vector2 _cameraMovement;
         private float _cinemachineTargetX;
-        private int _cinemachineXSpeed;
         private float _cinemachineTargetY;
-        private int _cinemachineYSpeed;
-
+        
         private void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
@@ -78,7 +76,7 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
             else if (!_uiMobileObject.activeInHierarchy)
             {
                 _inputs = _moveAction.ReadValue<Vector2>();
-                _cameraMovement = -_lookAction.ReadValue<Vector2>() * Time.deltaTime * 35f;
+                _cameraMovement = _lookAction.ReadValue<Vector2>() * Time.deltaTime * 35f;
             }
         }
         private bool IsPlayerRunning()
@@ -109,7 +107,8 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
             {
                 _playerSpeed = 0.0f;
                 _movement = new Vector3(0, _rigidBody.velocity.y, 0);
-                Animations(_animSpeed, false);
+
+                Animations(_animSpeed, IsPlayerRunning());
             }
             _rigidBody.velocity = _movement;
         }
@@ -139,6 +138,7 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
         {
             if (angle < -360f) angle += 360f;
             if (angle > 360f) angle -= 360f;
+
             return Mathf.Clamp(angle, angleMin, angleMax);
         }
         #endregion
