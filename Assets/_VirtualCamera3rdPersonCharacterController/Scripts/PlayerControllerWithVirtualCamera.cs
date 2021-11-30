@@ -108,7 +108,7 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
                 _playerSpeed = 0.0f;
                 _movement = new Vector3(0, _rigidBody.velocity.y, 0);
 
-                Animations(_animSpeed, IsPlayerRunning());
+                Animations(_animSpeed, false);
             }
             _rigidBody.velocity = _movement;
         }
