@@ -25,8 +25,7 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
                             OutputVectorValue(Vector2.zero);
                     }
                 }
-            }
-            
+            }            
         }
         private void OutputVectorValue(Vector2 outputValue)
         {
