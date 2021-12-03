@@ -27,12 +27,13 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
                     }
                 }
             }
-
         }
+
         private void OutputVectorValue(Vector2 outputValue)
         {
             _playerVectorOutput = outputValue;
         }
+
         public Vector2 VectorOutput()
         {
             return _playerVectorOutput;
