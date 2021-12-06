@@ -12,11 +12,8 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 
         [Header("Player Inputs")]
         private Vector2 _inputs;
-        private PlayerInput _inputActions;
-        private InputAction _moveAction;
-        private InputAction _lookAction;
-        private InputAction _runAction;
-
+        private PlayerInputsWithFreeLookCamera _inputActions;
+        
         [Header("Animation Section")]
         private Animator _animator;
         private int _animSpeedId;
@@ -39,11 +36,8 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         {
             _rigidBody = GetComponent<Rigidbody>();
 
-            _inputActions = GetComponent<PlayerInput>();
-            _moveAction = _inputActions.actions["Move"];
-            _lookAction = _inputActions.actions["Look"];
-            _runAction = _inputActions.actions["Run"];
-
+            _inputActions = GetComponent<PlayerInputsWithFreeLookCamera>();
+            
             _animator = GetComponent<Animator>();
             _animSpeedId = Animator.StringToHash("Speed");
             _animRunId = Animator.StringToHash("isPlayerRunning");
@@ -55,6 +49,7 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         {
             InputSwitch();
         }
+
         private void FixedUpdate()
         {
             Movement();
@@ -63,19 +58,13 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         #region Device Input Section
         private void InputSwitch()
         {
-            _inputs = _moveAction.ReadValue<Vector2>() != Vector2.zero ? _moveAction.ReadValue<Vector2>() : _uiVirtualJoystickInput.VectorOutput();
-        }
-
-        public Vector2 VectorLook()
-        {
-            return _lookAction.ReadValue<Vector2>();
+            _inputs = _inputActions.OnMove() != Vector2.zero ? _inputActions.OnMove() : _uiVirtualJoystickInput.VectorOutput();
         }
         #endregion
 
         #region MovementSection
         private void Movement()
         {
-            //_inputs = _moveAction.ReadValue<Vector2>();
             _playerSpeed = IsPlayerRunning() ? _runSpeed : _standardSpeed;
             _animSpeed = Mathf.Abs(_inputs.x) + Mathf.Abs(_inputs.y);
 
@@ -101,7 +90,7 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 
         private bool IsPlayerRunning()
         {
-            bool isPlayerRunning = _runAction.ReadValue<float>() != 0 ? true : false;
+            bool isPlayerRunning = _inputActions.OnRun();
             return isPlayerRunning;
         }
         #endregion

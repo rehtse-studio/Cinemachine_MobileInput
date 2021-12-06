@@ -44,8 +44,7 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
         public void OnPointerDown(PointerEventData _onPointerDownData)
         {
             OnDrag(_onPointerDownData);
-            _touchID = _onPointerDownData.pointerId;
-            _myTouch.fingerId = _touchID;
+            _touchID = _myTouch.fingerId;
         }
 
         public void OnDrag(PointerEventData _onDragData)

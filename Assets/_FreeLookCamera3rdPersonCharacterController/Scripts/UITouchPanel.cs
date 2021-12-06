@@ -7,10 +7,8 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 {
     public class UITouchPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
-        [SerializeField]
         private Vector2 _playerVectorOutput;
         private Touch _myTouch;
-        [SerializeField]
         private int _touchID;
 
         private void Update()
@@ -47,8 +45,7 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         public void OnPointerDown(PointerEventData _onPointerDownData)
         {
             OnDrag(_onPointerDownData);
-            _touchID = _onPointerDownData.pointerId;
-            _myTouch.fingerId = _touchID;
+            _touchID = _myTouch.fingerId;
         }
 
         public void OnDrag(PointerEventData _onDragData)

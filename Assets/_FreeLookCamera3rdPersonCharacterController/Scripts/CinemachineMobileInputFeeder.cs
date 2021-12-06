@@ -6,7 +6,8 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
     public class CinemachineMobileInputFeeder : MonoBehaviour
     {
         [SerializeField] private UITouchPanel _touchPanelInput;
-        [SerializeField] private PlayerControllerWithFreeLookCamera _playerInput;
+        [SerializeField] private PlayerInputsWithFreeLookCamera _playerInput;
+
         private Vector2 _lookInput;
 
         [SerializeField] private float _touchSpeedSensitivityX = 3f;
@@ -22,7 +23,7 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 
         private float GetInputAxis(string axisName)
         {
-            _lookInput = _touchPanelInput.VectorOutput() != Vector2.zero ? _touchPanelInput.VectorOutput() : _playerInput.VectorLook();
+            _lookInput = _touchPanelInput.VectorOutput() != Vector2.zero ? _touchPanelInput.VectorOutput() : _playerInput.OnLook();
 
             if (axisName == _touchXMapTo)
                 return _lookInput.x / _touchSpeedSensitivityX;
