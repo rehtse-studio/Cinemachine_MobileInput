@@ -8,7 +8,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
     public class PlayerInputsWithFreeLookCamera : MonoBehaviour
     {
         [Header("Player Inputs")]
-        private Vector2 _inputs;
         private PlayerInput _inputActions;
         private InputAction _moveAction;
         private InputAction _lookAction;

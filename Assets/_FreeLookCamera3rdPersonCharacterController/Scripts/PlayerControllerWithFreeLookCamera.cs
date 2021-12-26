@@ -102,7 +102,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
             _animator.SetFloat(_animSpeedId, animInt);
         }
         #endregion
-
     }
 
 }

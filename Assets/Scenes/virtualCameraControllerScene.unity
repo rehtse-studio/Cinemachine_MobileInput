@@ -576,10 +576,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1067984081, guid: 37ffc3835d55a6747a0cde9abfdbe713, type: 3}
-      propertyPath: ShoulderOffset.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1178900374, guid: 37ffc3835d55a6747a0cde9abfdbe713, type: 3}
       propertyPath: _uiMobileObject
       value: 
@@ -592,19 +588,10 @@ PrefabInstance:
       propertyPath: _virtualJoystickInput
       value: 
       objectReference: {fileID: 1622272858}
-    - target: {fileID: 2141593134, guid: 37ffc3835d55a6747a0cde9abfdbe713, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.73
-      objectReference: {fileID: 0}
     - target: {fileID: 2835204134489202930, guid: 37ffc3835d55a6747a0cde9abfdbe713,
         type: 3}
       propertyPath: m_Name
       value: PlayerWithVirtualCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 2835204134489202930, guid: 37ffc3835d55a6747a0cde9abfdbe713,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3176018016861354568, guid: 37ffc3835d55a6747a0cde9abfdbe713,
         type: 3}
