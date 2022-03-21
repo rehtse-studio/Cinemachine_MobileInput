@@ -125,7 +125,7 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
         #region CameraSection
         private void CameraRotation()
         {
-            _cinemachineTargetX += _cameraMovement.x;
+            _cinemachineTargetX += -_cameraMovement.x;
             _cinemachineTargetY += _cameraMovement.y;
 
             _cinemachineTargetX = CameraClampAngle(_cinemachineTargetX, float.MinValue, float.MaxValue);

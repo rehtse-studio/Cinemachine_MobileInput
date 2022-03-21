@@ -7,7 +7,6 @@ namespace RehtseStudio.VirtualCamera3rdPersonCharacterController.Scripts
 {
     public class UITouchPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
-        [SerializeField]
         private Vector2 _playerVectorOutput;
         private Touch _myTouch;
         private int _touchID;

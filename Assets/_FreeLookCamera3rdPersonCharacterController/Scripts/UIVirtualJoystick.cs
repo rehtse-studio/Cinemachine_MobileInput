@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.Layouts;
+using UnityEngine.InputSystem.OnScreen;
 
 namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 {
-    public class UIVirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+    public class UIVirtualJoystick : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
+        private Vector2 _playerJoystickVectorOutput;
+
         [Header("Joysticks Images RectTransform Reference")]
         [SerializeField] RectTransform _joystickContainerRectTransform;
         [SerializeField] RectTransform _joystickHandleRectTransform;
@@ -14,15 +18,22 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 
         [Header("Joystick Settings")]
         [SerializeField] float _joystickMovementRange = 50f;
-        [SerializeField] float _magnitudeMultiplier = 1f;
-        [SerializeField] bool _isXOutputValueInverted;
-        [SerializeField] bool _isYOutputValueInverted;
+        float _magnitudeMultiplier = 1f;
 
         [Header("Position Reference For The Joystick")]
         private Vector2 _touchPosition;
         private Vector2 _clampedPosition;
         private Vector2 _outputPosition;
-        private Vector2 _playerVectorOutput;
+
+        [Header("Select The Control Path Of The Joystick")]
+        [InputControl(layout = "Vector2")]
+        [SerializeField] private string _controlPath;
+
+        protected override string controlPathInternal
+        {
+            get => _controlPath;
+            set => _controlPath = value;
+        }
 
         private void Start()
         {
@@ -39,7 +50,9 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         public void OnPointerUp(PointerEventData _onPointerUpEventData)
         {
             OutputVectorValue(Vector2.zero);
+
             _joystickHandleObject.SetActive(false);
+
             if (_joystickHandleRectTransform)
             {
                 UpdateJoystickHandleRectTransformPosition(Vector2.zero);
@@ -48,12 +61,15 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 
         private void OutputVectorValue(Vector2 outputValue)
         {
-            _playerVectorOutput = outputValue;
+            _playerJoystickVectorOutput = outputValue;
+            //SendValueToControl(outputValue);
         }
-        public Vector2 VectorOutput()
+
+        public Vector2 PlayerJoystickOutputVector()
         {
-            return _playerVectorOutput;
+            return _playerJoystickVectorOutput;
         }
+
         public void OnPointerDown(PointerEventData _onPointerDownEventData)
         {
             OnDrag(_onPointerDownEventData);
@@ -65,9 +81,10 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_joystickContainerRectTransform, _onDragEvenData.position, _onDragEvenData.pressEventCamera, out _touchPosition);
             _touchPosition = ApplySizeDelta(_touchPosition);
             _clampedPosition = ClampValuesToMagnitude(_touchPosition);
-            _outputPosition = ApplyInversionFilter(_touchPosition);
+            _outputPosition = _touchPosition;
 
             OutputVectorValue(_outputPosition * _magnitudeMultiplier);
+
             if (_joystickHandleRectTransform)
             {
                 UpdateJoystickHandleRectTransformPosition(_clampedPosition * _joystickMovementRange);
@@ -86,25 +103,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
             return Vector2.ClampMagnitude(position, 1);
         }
 
-        Vector2 ApplyInversionFilter(Vector2 position)
-        {
-            if (_isXOutputValueInverted)
-            {
-                position.x = InverValue(position.x);
-            }
-
-            if (_isYOutputValueInverted)
-            {
-                position.y = InverValue(position.y);
-            }
-
-            return position;
-        }
-
-        float InverValue(float valueToInvert)
-        {
-            return -valueToInvert;
-        }
         private void UpdateJoystickHandleRectTransformPosition(Vector2 newPosition)
         {
             _joystickHandleRectTransform.anchoredPosition = newPosition;

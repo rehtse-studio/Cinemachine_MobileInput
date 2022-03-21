@@ -7,12 +7,15 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 {
     public class PlayerControllerWithFreeLookCamera : MonoBehaviour
     {
-        [Header("Virtual Joystick Reference")]
-        [SerializeField] private UIVirtualJoystick _uiVirtualJoystickInput;
-
         [Header("Player Inputs")]
         private Vector2 _inputs;
-        private PlayerInputsWithFreeLookCamera _inputActions;
+        [SerializeField] private UIVirtualJoystick _joystickInput;
+
+        //private FLCamera3rdPersonCharacterControllerInputAction _inputActions;
+        private PlayerInput _inputActions;
+        private InputAction _moveAction;
+        private InputAction _lookAction;
+        private InputAction _runAction;
         
         [Header("Animation Section")]
         private Animator _animator;
@@ -31,13 +34,36 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         [Header("Camera Reference")]
         [SerializeField] private GameObject _cinemachineTargetObject;
         private Camera _mainCamera;
-        
+        /*
+        #region Input Actions
+        private void OnEnable()
+        {
+            _inputActions = new FLCamera3rdPersonCharacterControllerInputAction();
+            _inputActions.Enable();
+
+            _moveAction = _inputActions.Player.Move;
+            _moveAction.Enable();
+
+            _runAction = _inputActions.Player.Run;
+            _runAction.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _inputActions.Disable();
+            _moveAction.Disable();
+            _runAction.Disable();
+        }
+        #endregion
+        */
         private void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
 
-            _inputActions = GetComponent<PlayerInputsWithFreeLookCamera>();
-            
+            _inputActions = GetComponent<PlayerInput>();
+            _moveAction = _inputActions.actions["Move"];
+            _runAction = _inputActions.actions["Run"];
+
             _animator = GetComponent<Animator>();
             _animSpeedId = Animator.StringToHash("Speed");
             _animRunId = Animator.StringToHash("isPlayerRunning");
@@ -45,26 +71,15 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
             _mainCamera = Camera.main;
         }
 
-        private void Update()
-        {
-            InputSwitch();
-        }
-
         private void FixedUpdate()
         {
             Movement();
         }
 
-        #region Device Input Section
-        private void InputSwitch()
-        {
-            _inputs = _inputActions.OnMove() != Vector2.zero ? _inputActions.OnMove() : _uiVirtualJoystickInput.VectorOutput();
-        }
-        #endregion
-
         #region MovementSection
         private void Movement()
         {
+            _inputs = _joystickInput.PlayerJoystickOutputVector();
             _playerSpeed = IsPlayerRunning() ? _runSpeed : _standardSpeed;
             _animSpeed = Mathf.Abs(_inputs.x) + Mathf.Abs(_inputs.y);
 
@@ -90,7 +105,7 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 
         private bool IsPlayerRunning()
         {
-            bool isPlayerRunning = _inputActions.OnRun();
+            bool isPlayerRunning = _runAction.ReadValue<float>() != 0 ? true : false;
             return isPlayerRunning;
         }
         #endregion
