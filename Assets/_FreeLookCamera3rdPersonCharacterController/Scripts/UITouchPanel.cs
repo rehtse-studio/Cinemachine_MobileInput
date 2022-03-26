@@ -7,22 +7,12 @@ using UnityEngine.InputSystem.OnScreen;
 
 namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 {
-    public class UITouchPanel : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
+    public class UITouchPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
         private Vector2 _playerTouchVectorOutput;
         private bool _isPlayerTouchingPanel;
         private Touch _myTouch;
         private int _touchID;
-
-        [Header("Select The Control Path Of The Joystick")]
-        [InputControl(layout = "Vector2")]
-        [SerializeField] private string _controlPath;
-
-        protected override string controlPathInternal
-        {
-            get => _controlPath;
-            set => _controlPath = value;
-        }
 
         private void FixedUpdate()
         {
@@ -46,7 +36,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         private void OutputVectorValue(Vector2 outputValue)
         {
             _playerTouchVectorOutput = outputValue;
-            //SendValueToControl(outputValue);
         }
 
         public Vector2 PlayerJoystickOutputVector()

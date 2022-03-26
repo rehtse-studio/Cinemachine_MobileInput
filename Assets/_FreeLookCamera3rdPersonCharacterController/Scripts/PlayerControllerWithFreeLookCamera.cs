@@ -11,7 +11,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         private Vector2 _inputs;
         [SerializeField] private UIVirtualJoystick _joystickInput;
 
-        //private FLCamera3rdPersonCharacterControllerInputAction _inputActions;
         private PlayerInput _inputActions;
         private InputAction _moveAction;
         private InputAction _lookAction;
@@ -32,30 +31,8 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         private float _runSpeed = 5;
 
         [Header("Camera Reference")]
-        [SerializeField] private GameObject _cinemachineTargetObject;
         private Camera _mainCamera;
-        /*
-        #region Input Actions
-        private void OnEnable()
-        {
-            _inputActions = new FLCamera3rdPersonCharacterControllerInputAction();
-            _inputActions.Enable();
-
-            _moveAction = _inputActions.Player.Move;
-            _moveAction.Enable();
-
-            _runAction = _inputActions.Player.Run;
-            _runAction.Enable();
-        }
-
-        private void OnDisable()
-        {
-            _inputActions.Disable();
-            _moveAction.Disable();
-            _runAction.Disable();
-        }
-        #endregion
-        */
+        
         private void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.OnScreen;
 
 namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
 {
-    public class UIVirtualJoystick : OnScreenControl, IPointerDownHandler, IPointerUpHandler, IDragHandler
+    public class UIVirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
         private Vector2 _playerJoystickVectorOutput;
 
@@ -24,16 +24,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         private Vector2 _touchPosition;
         private Vector2 _clampedPosition;
         private Vector2 _outputPosition;
-
-        [Header("Select The Control Path Of The Joystick")]
-        [InputControl(layout = "Vector2")]
-        [SerializeField] private string _controlPath;
-
-        protected override string controlPathInternal
-        {
-            get => _controlPath;
-            set => _controlPath = value;
-        }
 
         private void Start()
         {
@@ -62,7 +52,6 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         private void OutputVectorValue(Vector2 outputValue)
         {
             _playerJoystickVectorOutput = outputValue;
-            //SendValueToControl(outputValue);
         }
 
         public Vector2 PlayerJoystickOutputVector()

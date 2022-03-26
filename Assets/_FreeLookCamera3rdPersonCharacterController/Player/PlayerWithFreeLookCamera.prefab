@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 7953325851993349204}
   - component: {fileID: 12948812102859521}
   - component: {fileID: 4173781260792330508}
+  - component: {fileID: 1741147165}
   m_Layer: 0
   m_Name: PlayerWithFreeLookCamera
   m_TagString: Player
@@ -981,6 +982,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joystickInput: {fileID: 0}
   _cinemachineTargetObject: {fileID: 12948812096288993}
+--- !u!114 &1741147165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2843649072436331448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: dd4aa54e137453048b3178adeaef3bfd,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &3001895895785258159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,7 +1482,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4511657598424791186}
-  m_LocalRotation: {x: 0.039108213, y: -0.00063560955, z: 0.00002487659, w: 0.9992348}
+  m_LocalRotation: {x: 0.03910822, y: -0, z: -0, w: 0.999235}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1510,6 +1542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 56278959857621228}
   - component: {fileID: 6658938713778274006}
+  - component: {fileID: 843109736}
   m_Layer: 0
   m_Name: PlayerCMFreeLook
   m_TagString: Untagged
@@ -1525,7 +1558,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4585271601149527026}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0038190763, y: 1.5853441, z: -3.0019724}
+  m_LocalPosition: {x: 0, y: 1.5853441, z: -3.0019748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4507405946383283162}
@@ -1577,7 +1610,7 @@ MonoBehaviour:
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 0
+    m_InvertInput: 1
     m_MinValue: 0
     m_MaxValue: 1
     m_Wrap: 0
@@ -1635,6 +1668,21 @@ MonoBehaviour:
   - {fileID: 2231300323450289948}
   - {fileID: 8690870017260655125}
   - {fileID: 5656500824925100426}
+--- !u!114 &843109736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585271601149527026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed3e87c907cfc14d84e94cc9580ac48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _touchInput: {fileID: 0}
+  _touchSpeedSensitivityX: 1
+  _touchSpeedSensitivityY: 1
 --- !u!1 &4637992582811237124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,8 +2438,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6290275521790645350}
-  m_LocalRotation: {x: -0.037012026, y: -0.0006356577, z: -0.000023543118, w: 0.9993146}
-  m_LocalPosition: {x: -0.0000000034924597, y: 0, z: 0}
+  m_LocalRotation: {x: -0.03701203, y: 0.000000029840013, z: 0.0000000011051967, w: 0.9993149}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5030788786683798406}
@@ -3192,7 +3240,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8694845484635328295}
-  m_LocalRotation: {x: 0.039108213, y: -0.00063560955, z: 0.00002487659, w: 0.9992348}
+  m_LocalRotation: {x: 0.03910822, y: 1e-45, z: -0, w: 0.999235}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
