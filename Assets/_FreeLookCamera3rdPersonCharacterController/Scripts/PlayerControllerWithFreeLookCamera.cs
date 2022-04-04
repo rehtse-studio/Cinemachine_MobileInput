@@ -9,11 +9,11 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
     {
         [Header("Player Inputs")]
         private Vector2 _inputs;
-        [SerializeField] private UIVirtualJoystick _joystickInput;
 
+        [SerializeField] 
+        private UIVirtualJoystick _joystickInput;
+        
         private PlayerInput _inputActions;
-        private InputAction _moveAction;
-        private InputAction _lookAction;
         private InputAction _runAction;
         
         [Header("Animation Section")]
@@ -36,11 +36,10 @@ namespace RehtseStudio.FreeLookCamera3rdPersonCharacterController.Scripts
         private void Start()
         {
             _rigidBody = GetComponent<Rigidbody>();
-
+            
             _inputActions = GetComponent<PlayerInput>();
-            _moveAction = _inputActions.actions["Move"];
             _runAction = _inputActions.actions["Run"];
-
+            
             _animator = GetComponent<Animator>();
             _animSpeedId = Animator.StringToHash("Speed");
             _animRunId = Animator.StringToHash("isPlayerRunning");
